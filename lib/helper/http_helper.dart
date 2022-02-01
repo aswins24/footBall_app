@@ -19,8 +19,6 @@ class HttpHelper {
       throw Failure(e.message.split(':')[1].split(',')[0]);
     } on FormatException {
       throw Failure('Something went wrong. Please try again');
-    } catch (e) {
-      print('Get exception: $e');
     }
   }
 
