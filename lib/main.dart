@@ -73,40 +73,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+
   CompetitionDetailProvider? _competitionDetailProvider;
   TeamDetails? _teamDetails;
   CompetitionResult? _competitionResult;
   late Size size;
 
-  void _incrementCounter() async {
-    // _competitionDetailProvider!.setCurrentCompetition('CL');
-    //  await _competitionDetailProvider!.fetchCompetitionDetails();
-    //  await _teamDetails!.fetchTeamsForCompetition();
-    //  await _competitionResult!.fetchMatchResults();
 
-    // await _teamDetails!.fetchTeamsForCompetition();
-    // await _competitionResult!.fetchMatchResults();
-    // setState(() {
-    //   // This call to setState tells the Flutter framework that something has
-    //   // changed in this State, which causes it to rerun the build method below
-    //   // so that the display can reflect the updated values. If we changed
-    //   // _counter without calling setState(), then the build method would not be
-    //   // called again, and so nothing would appear to happen.
-    //
-    //
-    // });
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    // FootballApiService().fetchCompetitionDetail('competitions/CL');
-    // FootballApiService().fetchTeamsForCompetition('competitions/CL/teams');
-    // FootballApiService()
-    //     .fetchMatchResultsForCompetition('competitions/CL/matches');
+
   }
 
   @override
@@ -119,28 +99,22 @@ class _MyHomePageState extends State<MyHomePage> {
       context,
     );
     _competitionResult = Provider.of<CompetitionResult>(context);
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
 
     return OrientationBuilder(
       builder: (context, orientation) => Scaffold(
         appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
+
           title: Text(widget.title),
         ),
         body: orientation == Orientation.portrait
             ? getPortraitView()
             : getLandscapeView(),
-        // This trailing comma makes auto-formatting nicer for build methods.
+
       ),
     );
   }
-
+//UI once a particular competition is selected
   getCompetitionData() {
     return Consumer<CompetitionDetailProvider>(
       builder: (context, model, widget) {
@@ -152,12 +126,12 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         if (!model.isLoading! && model.failureMessage.isNotEmpty) {
           return Center(
-            child: Text(model.failureMessage),
+            child: Text(model.failureMessage, style: AppTextStyle.contentText,),
           );
         }
         if (!model.isLoading! && model.competitionDetail == null) {
-          return const Center(
-            child: Text('Something went wrong'),
+          return  Center(
+            child: Text('Something went wrong', style: AppTextStyle.contentText,),
           );
         }
         return CompetitionDetailCard(model.competitionDetail!);
@@ -217,14 +191,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           );
         } else {
-          return const Center(
-            child: Text('No results found'),
+          return  Center(
+            child: Text('No results found', style: AppTextStyle.contentText,),
           );
         }
       },
     );
   }
-
+//Main View for portrait mode
   getPortraitView() {
     return ListView(
       children: <Widget>[
@@ -257,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
   }
-
+//Main view for landscape mode
   getLandscapeView() {
     return Row(
       children: [
@@ -285,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // height: size.height,
           width: size.width * 0.7,
           child: ListView(
-            // physics: const NeverScrollableScrollPhysics(),
+
             children: [
               getCompetitionData(),
               if (_teamDetails != null &&
