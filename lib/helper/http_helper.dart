@@ -12,7 +12,7 @@ class HttpHelper {
     Uri uri = params != null ? Uri.parse(baseUrl + params) : Uri.parse(baseUrl);
     try {
       final response = await http.get(uri, headers: {'X-Auth-Token': token});
-      _returnResponse(response);
+     return _returnResponse(response);
     } on SocketException {
       throw Failure('No internet connection');
     } on HttpException catch (e) {
